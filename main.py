@@ -42,8 +42,13 @@ class Posts(db.Model):
 
 class MainPage(Handler):
     def render_blog(self):
-        posts = db.GqlQuery("SELECT * FROM Posts ORDER BY date DESC")
-        self.render("blog.html", posts = posts)
+        page = self.request.get("page") or 1
+        if page > 1:
+            posts = db.GqlQuery("SELECT * FROM Posts ORDER BY date DESC LIMIT 5 OFFSET " + str((int(page) * 5) - 5))
+        else:
+            posts = db.GqlQuery("SELECT * FROM Posts ORDER BY date DESC LIMIT 5")
+        num_posts = posts.count()
+        self.render("blog.html", page = int(page), posts = posts, num_posts = num_posts)
 
     def get(self):
         self.render_blog()
@@ -69,14 +74,17 @@ class NewPost(Handler):
             self.render_form(subject, content, error)
 
 class PermaLink(Handler):
-    def get(self, post_id):
-        post = Posts.get_by_id(int(post_id))
-
-        self.render("permalink.html", subject = post.subject,
-                    content = post.content, date = post.date)
+    def get(self, id):
+        post = Posts.get_by_id(int(id))
+        if post:
+            self.render("permalink.html", subject = post.subject,
+                        content = post.content, date = post.date)
+        else:
+            error = "Blog Post not found."
+            self.render("permalink.html", error = error)
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/newpost', NewPost),
-    ('/(\d+)', PermaLink)
+    webapp2.Route('/<id:\d+>', PermaLink)
 ], debug=True)

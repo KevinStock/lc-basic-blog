@@ -1,12 +1,83 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CS 253 Blog</title>
+        <title>Build-A-Blog</title>
     </head>
+
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 20px;
+        }
+
+        input[type=text] {
+            width: 400px;
+            font-size: 20px;
+            padding: 2px;
+        }
+
+        textarea {
+            width: 400px;
+            height: 200px;
+            font-size: 17px;
+            font-family: monospace;
+        }
+
+        input[type=submit] {
+            font-size: 24px;
+        }
+
+        hr {
+            clear: both;
+            margin: 20px auto;
+        }
+
+        .post + .post {
+            margin-top: 20px;
+        }
+
+        .post-title {
+            float: left;
+            font-weight: bold;
+        }
+
+        .post-body {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .post-date {
+            float: right;
+        }
+
+        .nav li {
+            display: inline-block;
+        }
+
+    </style>
+
     <body>
-        <h1><a href="http://localhost:8080">CS 253 Blog</a></h1>
-        <h2><a href="http://localhost:8080/newpost">New Post</a></h2>
-        <hr>
+        <ul class="nav">
+            <li><a href="http://localhost:8080">home</a></li>
+            |
+            <li><a href="http://localhost:8080/newpost">new post</a></li>
+        </ul>
+        <h1>Build-A-Blog</h1>
         {% block content %}
         {% endblock %}
     </body>
