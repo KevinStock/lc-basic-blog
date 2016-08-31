@@ -24,6 +24,9 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 autoescape = True)
 
+def get_posts(limit, offset):
+    return db.GqlQuery("SELECT * FROM Posts ORDER BY date_time DESC LIMIT %s OFFSET %s" % (str(limit), str(offset)))
+
 class Handler(webapp2.RequestHandler):
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
@@ -38,15 +41,15 @@ class Handler(webapp2.RequestHandler):
 class Posts(db.Model):
     subject = db.StringProperty(required = True)
     content = db.TextProperty(required = True)
-    date = db.DateProperty(auto_now_add = True)
+    date_time = db.DateTimeProperty(auto_now_add = True)
 
 class MainPage(Handler):
     def render_blog(self):
         page = self.request.get("page") or 1
         if page > 1:
-            posts = db.GqlQuery("SELECT * FROM Posts ORDER BY date DESC LIMIT 5 OFFSET " + str((int(page) * 5) - 5))
+            posts = get_posts(5, (int(page) * 5) - 5)
         else:
-            posts = db.GqlQuery("SELECT * FROM Posts ORDER BY date DESC LIMIT 5")
+            posts = get_posts(5, 0)
         num_posts = posts.count()
         self.render("blog.html", page = int(page), posts = posts, num_posts = num_posts)
 
@@ -78,7 +81,7 @@ class PermaLink(Handler):
         post = Posts.get_by_id(int(id))
         if post:
             self.render("permalink.html", subject = post.subject,
-                        content = post.content, date = post.date)
+                        content = post.content, date = post.date_time)
         else:
             error = "Blog Post not found."
             self.render("permalink.html", error = error)
