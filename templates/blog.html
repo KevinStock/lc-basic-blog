@@ -5,7 +5,7 @@
 {% for post in posts %}
 <div class="post">
     <div class="post-title">
-        <a href="http://localhost:8080/{{ post.key().id() }}">{{post.subject}}</a>
+        <a href="http://localhost:8080/blog/{{ post.key().id() }}">{{post.subject}}</a>
     </div>
     <div class="post-date">
         {{post.date_time.date()}}
@@ -16,10 +16,10 @@
 {% endfor %}
 <ul class="nav">
     {% if page > 1 or num_posts % page * 5 > 0 %}
-    <li><a href="http://localhost:8080?page={{page - 1}}">< prev</a></li>
+    <li><a href="http://localhost:8080/blog?page={{page - 1}}">< prev</a></li>
     {% endif %}
     {% if num_posts - (page * 5) > 0 %}
-    <li><a href="http://localhost:8080?page={{page + 1}}">next ></a></li>
+    <li><a href="http://localhost:8080/blog?page={{page + 1}}">next ></a></li>
     {% endif %}
 </ul>
 {% endblock %}

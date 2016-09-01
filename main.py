@@ -71,7 +71,7 @@ class NewPost(Handler):
             p = Posts(subject = subject, content = content)
             p.put()
 
-            self.redirect("/%s" % str(p.key().id()))
+            self.redirect("/blog/%s" % str(p.key().id()))
         else:
             error = "subject and content required"
             self.render_form(subject, content, error)
@@ -87,7 +87,7 @@ class PermaLink(Handler):
             self.render("permalink.html", error = error)
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/blog', MainPage),
     ('/newpost', NewPost),
-    webapp2.Route('/<id:\d+>', PermaLink)
+    webapp2.Route('/blog/<id:\d+>', PermaLink)
 ], debug=True)
