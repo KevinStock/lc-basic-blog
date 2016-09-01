@@ -88,6 +88,6 @@ class PermaLink(Handler):
 
 app = webapp2.WSGIApplication([
     ('/blog', MainPage),
-    ('/newpost', NewPost),
+    ('/blog/newpost', NewPost),
     webapp2.Route('/blog/<id:\d+>', PermaLink)
 ], debug=True)
