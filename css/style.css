@@ -7,6 +7,7 @@ body {
 
 .error {
     color: red;
+    font-weight: bold;
 }
 
 h1 {
@@ -60,4 +61,8 @@ hr {
 
 .nav li {
     display: inline-block;
+}
+
+.center {
+    text-align: center;
 }

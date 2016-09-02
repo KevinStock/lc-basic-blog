@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-<div class="error">
+{% if error %}
+<div class="error center">
     {{error}}
 </div>
+{% else %}
 <div class="post">
     <div class="post-title">
         {{subject}}
@@ -15,4 +16,5 @@
     <hr>
     <pre name="post-body">{{content}}</pre>
 </div>
+{% endif %}
 {% endblock %}
