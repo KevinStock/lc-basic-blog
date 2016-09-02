@@ -59,10 +59,34 @@ hr {
     float: right;
 }
 
+.nav li,
+.pagnation li {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+}
+
 .nav li {
     display: inline-block;
 }
 
 .center {
     text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.right::after {
+    clear: both;
+}
+
+.pagnation {
+    padding-left: 0;
 }

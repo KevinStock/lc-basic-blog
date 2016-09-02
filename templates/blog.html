@@ -14,12 +14,12 @@
     <pre name="post-body">{{post.content}}</pre>
 </div>
 {% endfor %}
-<ul class="nav">
+<ul class="pagnation">
     {% if page > 1 or num_posts % page * 5 > 0 %}
-    <li><a href="http://localhost:8080/blog?page={{page - 1}}">< prev</a></li>
+    <li class="left"><a href="http://localhost:8080/blog?page={{page - 1}}">< prev</a></li>
     {% endif %}
     {% if num_posts - (page * 5) > 0 %}
-    <li><a href="http://localhost:8080/blog?page={{page + 1}}">next ></a></li>
+    <li class="right"><a href="http://localhost:8080/blog?page={{page + 1}}">next ></a></li>
     {% endif %}
 </ul>
 {% endblock %}
