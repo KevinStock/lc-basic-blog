@@ -86,7 +86,12 @@ class PermaLink(Handler):
             error = "Blog Post not found."
             self.render("permalink.html", error = error)
 
+class RedirectBlog(Handler):
+    def get(self):
+        self.redirect("/blog")
+
 app = webapp2.WSGIApplication([
+    ('/', RedirectBlog),
     ('/blog', MainPage),
     ('/blog/newpost', NewPost),
     webapp2.Route('/blog/<id:\d+>', PermaLink)
