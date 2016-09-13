@@ -5,21 +5,21 @@
 {% for post in posts %}
 <div class="post">
     <div class="post-title">
-        <a href="http://localhost:8080/blog/{{ post.key().id() }}">{{post.subject}}</a>
+        <a href="/blog/{{ post.key().id() }}">{{post.subject}}</a>
     </div>
     <div class="post-date">
         {{post.date_time.date()}}
     </div>
     <hr>
-    <pre name="post-body">{{post.content}}</pre>
+    <div name="post-body">{{post.content}}</div>
 </div>
 {% endfor %}
 <ul class="pagnation">
     {% if page > 1 or num_posts % page * 5 > 0 %}
-    <li class="left"><a href="http://localhost:8080/blog?page={{page - 1}}">< prev</a></li>
+    <li class="left"><a href="/blog?page={{page - 1}}">< prev</a></li>
     {% endif %}
     {% if num_posts - (page * 5) > 0 %}
-    <li class="right"><a href="http://localhost:8080/blog?page={{page + 1}}">next ></a></li>
+    <li class="right"><a href="/blog?page={{page + 1}}">next ></a></li>
     {% endif %}
 </ul>
 {% endblock %}

@@ -90,3 +90,8 @@ hr {
 .pagnation {
     padding-left: 0;
 }
+
+.post textarea {
+    width: 100%;
+    border: 0;
+}
